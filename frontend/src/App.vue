@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import Toaster from '@/components/ui/Toaster.vue'
+import ErrorBoundary from '@/components/ui/ErrorBoundary.vue'
 
 const auth = useAuthStore()
 
@@ -16,5 +18,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <router-view />
+  <ErrorBoundary scope="app">
+    <router-view />
+  </ErrorBoundary>
+  <Toaster />
 </template>

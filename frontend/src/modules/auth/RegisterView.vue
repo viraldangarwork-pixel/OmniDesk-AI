@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import type { ApiError } from '@/types/api'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -22,8 +23,8 @@ async function submit() {
   try {
     await auth.register({ ...form.value })
     router.replace('/dashboard')
-  } catch (e: any) {
-    error.value = e?.response?.data?.detail ?? 'Registration failed'
+  } catch (e) {
+    error.value = (e as ApiError)?.message ?? 'Registration failed'
   } finally {
     loading.value = false
   }

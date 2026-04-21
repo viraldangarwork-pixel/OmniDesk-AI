@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import type { ApiError } from '@/types/api'
 
 const auth = useAuthStore()
 const route = useRoute()
@@ -19,8 +20,8 @@ async function submit() {
     await auth.login(email.value, password.value)
     const redirect = (route.query.redirect as string) || '/dashboard'
     router.replace(redirect)
-  } catch (e: any) {
-    error.value = e?.response?.data?.detail ?? 'Login failed'
+  } catch (e) {
+    error.value = (e as ApiError)?.message ?? 'Login failed'
   } finally {
     loading.value = false
   }

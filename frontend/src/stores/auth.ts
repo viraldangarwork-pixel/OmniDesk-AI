@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { api } from '@/services/api'
+import { api, withOptions } from '@/services/api'
 import { connectWebSocket, disconnectWebSocket } from '@/services/ws'
 
 export interface AuthUser {
@@ -54,7 +54,11 @@ export const useAuthStore = defineStore('auth', {
       connectWebSocket(access)
     },
     async login(email: string, password: string) {
-      const { data } = await api.post('/auth/login', { email, password })
+      const { data } = await api.post(
+        '/auth/login',
+        { email, password },
+        withOptions({ silent: true, skipAuthRefresh: true }),
+      )
       this.setTokens(data.tokens.access_token, data.tokens.refresh_token)
       this.user = data.user
     },
@@ -65,7 +69,11 @@ export const useAuthStore = defineStore('auth', {
       password: string
       full_name?: string
     }) {
-      const { data } = await api.post('/auth/register', payload)
+      const { data } = await api.post(
+        '/auth/register',
+        payload,
+        withOptions({ silent: true, skipAuthRefresh: true }),
+      )
       this.setTokens(data.tokens.access_token, data.tokens.refresh_token)
       this.user = data.user
     },
@@ -77,7 +85,11 @@ export const useAuthStore = defineStore('auth', {
     async tryRefresh(): Promise<boolean> {
       if (!this.refreshToken) return false
       try {
-        const { data } = await api.post('/auth/refresh', { refresh_token: this.refreshToken })
+        const { data } = await api.post(
+          '/auth/refresh',
+          { refresh_token: this.refreshToken },
+          withOptions({ silent: true, skipAuthRefresh: true }),
+        )
         this.setTokens(data.access_token, data.refresh_token)
         return true
       } catch {

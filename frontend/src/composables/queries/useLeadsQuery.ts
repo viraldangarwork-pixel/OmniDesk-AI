@@ -4,7 +4,7 @@ import {
   leadsApi,
   type LeadCreate,
   type LeadUpdate,
-  type LeadStageRow,
+  type LeadStageCreate,
 } from '@/services/resources'
 import { qk } from '@/services/queryKeys'
 import type { PageParams } from '@/types/api'
@@ -48,7 +48,7 @@ export function useUpdateLead() {
 export function useCreateLeadStage() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (payload: Omit<LeadStageRow, 'id'>) => leadsApi.createStage(payload),
+    mutationFn: (payload: LeadStageCreate) => leadsApi.createStage(payload),
     onSuccess: () => qc.invalidateQueries({ queryKey: qk.leads.stages() }),
   })
 }

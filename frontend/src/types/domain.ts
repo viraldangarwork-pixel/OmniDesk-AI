@@ -44,46 +44,68 @@ export interface Contact extends Timestamped {
   notes: string | null
 }
 
-export type LeadStage = 'new' | 'qualified' | 'proposal' | 'won' | 'lost' | string
-
 export interface Lead extends Timestamped {
   id: UUID
   tenant_id: UUID
-  contact_id: UUID | null
+  contact_id: UUID
   title: string
-  stage: LeadStage
-  value: number | null
+  value: number | string | null
+  currency: string
+  probability: number
+  source: string | null
+  description: string | null
+  stage_id: UUID | null
   owner_id: UUID | null
+  custom: Record<string, unknown>
+}
+
+export interface LeadStage extends Timestamped {
+  id: UUID
+  name: string
+  code: string
+  position: number
+  color: string | null
 }
 
 /* ----------------------------- Inbox ----------------------------- */
 
-export type Channel = 'whatsapp' | 'messenger' | 'instagram' | 'telegram' | 'livechat' | 'email'
-export type ConversationStatus = 'open' | 'pending' | 'closed' | 'snoozed'
+export type ConversationStatus = 'open' | 'pending' | 'closed' | 'escalated'
+export type MessageDirection = 'inbound' | 'outbound'
+export type MessageSender = 'customer' | 'agent' | 'ai' | 'system'
 
 export interface Conversation extends Timestamped {
   id: UUID
   tenant_id: UUID
-  contact_id: UUID | null
-  channel: Channel
-  status: ConversationStatus
+  channel_id: UUID
+  contact_id: UUID
   assignee_id: UUID | null
-  last_message_at: ISODate | null
-  unread_count: number
+  status: ConversationStatus
   subject: string | null
+  unread_count: number
+  last_message_at: ISODate | null
+  tags: string[]
 }
 
-export type MessageDirection = 'inbound' | 'outbound'
-export type MessageRole = 'customer' | 'agent' | 'ai' | 'system'
+export interface MessageAttachment {
+  id: UUID
+  url: string
+  filename: string | null
+  mime_type: string | null
+  size_bytes: number | null
+}
 
-export interface Message {
+export interface Message extends Timestamped {
   id: UUID
   conversation_id: UUID
+  sender_type: MessageSender
+  sender_id: UUID | null
   direction: MessageDirection
-  role: MessageRole
-  body: string
-  attachments: Array<{ url: string; mime: string; name?: string }>
-  created_at: ISODate
+  content: string | null
+  content_type: string
+  delivered_at: ISODate | null
+  read_at: ISODate | null
+  attachments: MessageAttachment[]
+  meta: Record<string, unknown>
 }
 
 /* ----------------------------- AI ----------------------------- */

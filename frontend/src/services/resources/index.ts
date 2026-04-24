@@ -8,7 +8,7 @@ export { contactsApi } from './contacts'
 export type { ContactCreate, ContactUpdate } from './contacts'
 
 export { leadsApi } from './leads'
-export type { LeadCreate, LeadUpdate, LeadStageRow } from './leads'
+export type { LeadCreate, LeadUpdate, LeadStageCreate } from './leads'
 
 export { conversationsApi } from './conversations'
 export type { ConversationFilters, ConversationDetail } from './conversations'

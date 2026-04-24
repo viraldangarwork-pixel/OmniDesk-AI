@@ -2,25 +2,36 @@ import { GET, POST, PUT, DELETE, type ReadOptions } from './_http'
 import type { Lead, LeadStage } from '@/types/domain'
 import type { Page, PageParams } from '@/types/api'
 
-export interface LeadStageRow {
-  id: string
-  code: string
-  name: string
-  position: number
-}
-
 export interface LeadCreate {
+  contact_id: string
   title: string
-  contact_id?: string | null
-  value?: number | null
-  stage?: LeadStage
+  value?: number | string | null
+  currency?: string
+  probability?: number
+  source?: string | null
+  description?: string | null
+  stage_code?: string | null
+  owner_id?: string | null
+  custom?: Record<string, unknown>
 }
 
 export interface LeadUpdate {
   title?: string
+  value?: number | string | null
+  currency?: string
+  probability?: number
+  source?: string | null
+  description?: string | null
   stage_code?: string
-  value?: number | null
   owner_id?: string | null
+  custom?: Record<string, unknown>
+}
+
+export interface LeadStageCreate {
+  name: string
+  code: string
+  position?: number
+  color?: string | null
 }
 
 export const leadsApi = {
@@ -31,7 +42,7 @@ export const leadsApi = {
   update: (id: string, payload: LeadUpdate) => PUT<Lead, LeadUpdate>(`/leads/${id}`, payload),
   remove: (id: string) => DELETE<void>(`/leads/${id}`),
 
-  stages: (opts?: ReadOptions) => GET<LeadStageRow[]>('/leads/stages', opts),
-  createStage: (payload: Omit<LeadStageRow, 'id'>) =>
-    POST<LeadStageRow, Omit<LeadStageRow, 'id'>>('/leads/stages', payload),
+  stages: (opts?: ReadOptions) => GET<LeadStage[]>('/leads/stages', opts),
+  createStage: (payload: LeadStageCreate) =>
+    POST<LeadStage, LeadStageCreate>('/leads/stages', payload),
 }

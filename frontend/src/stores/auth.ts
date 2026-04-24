@@ -45,6 +45,23 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: (s) => !!s.accessToken,
     hasPermission: (s) => (code: string) =>
       !!s.user && (s.user.is_superuser || s.user.permissions.includes(code)),
+    hasRole: (s) => (code: string) =>
+      !!s.user && (s.user.is_superuser || s.user.roles.includes(code)),
+    hasAnyPermission: (s) => (codes: readonly string[]) => {
+      if (!s.user) return false
+      if (s.user.is_superuser) return true
+      return codes.some((c) => s.user!.permissions.includes(c))
+    },
+    hasAllPermissions: (s) => (codes: readonly string[]) => {
+      if (!s.user) return false
+      if (s.user.is_superuser) return true
+      return codes.every((c) => s.user!.permissions.includes(c))
+    },
+    hasAnyRole: (s) => (codes: readonly string[]) => {
+      if (!s.user) return false
+      if (s.user.is_superuser) return true
+      return codes.some((c) => s.user!.roles.includes(c))
+    },
   },
   actions: {
     setTokens(access: string, refresh: string) {

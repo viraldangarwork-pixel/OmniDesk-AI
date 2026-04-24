@@ -2,6 +2,8 @@
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useUiStore } from '@/stores/ui'
+import { useCan } from '@/composables/useCan'
+import { P } from '@/auth/permissions'
 
 interface Props {
   mobile?: boolean
@@ -10,6 +12,7 @@ const props = defineProps<Props>()
 
 const ui = useUiStore()
 const route = useRoute()
+const can = useCan()
 
 // On desktop we honor the persisted collapse state.  In the mobile drawer
 // variant the sidebar is always shown expanded.
@@ -19,22 +22,27 @@ interface NavItem {
   to: string
   label: string
   icon: string
-  match?: string
+  /** When any of the listed permissions is held (super-user always passes). */
+  permission: string
 }
 
-const nav: NavItem[] = [
-  { to: '/dashboard', label: 'Dashboard', icon: 'grid' },
-  { to: '/inbox', label: 'Inbox', icon: 'chat' },
-  { to: '/contacts', label: 'Contacts', icon: 'users' },
-  { to: '/leads', label: 'Leads', icon: 'briefcase' },
-  { to: '/ai-agents', label: 'AI Agents', icon: 'sparkle' },
-  { to: '/knowledge-base', label: 'Knowledge', icon: 'book' },
-  { to: '/workflows', label: 'Workflows', icon: 'workflow' },
-  { to: '/reports', label: 'Reports', icon: 'chart' },
-  { to: '/users', label: 'Users', icon: 'user' },
-  { to: '/settings', label: 'Settings', icon: 'gear' },
-  { to: '/billing', label: 'Billing', icon: 'card' },
+const navAll: NavItem[] = [
+  { to: '/dashboard', label: 'Dashboard', icon: 'grid', permission: P.analytics.read },
+  { to: '/inbox', label: 'Inbox', icon: 'chat', permission: P.inbox.read },
+  { to: '/contacts', label: 'Contacts', icon: 'users', permission: P.contacts.manage },
+  { to: '/leads', label: 'Leads', icon: 'briefcase', permission: P.leads.manage },
+  { to: '/ai-agents', label: 'AI Agents', icon: 'sparkle', permission: P.ai.manage },
+  { to: '/knowledge-base', label: 'Knowledge', icon: 'book', permission: P.kb.manage },
+  { to: '/workflows', label: 'Workflows', icon: 'workflow', permission: P.workflows.manage },
+  { to: '/reports', label: 'Reports', icon: 'chart', permission: P.analytics.read },
+  { to: '/users', label: 'Users', icon: 'user', permission: P.users.read },
+  { to: '/settings', label: 'Settings', icon: 'gear', permission: P.tenants.manage },
+  { to: '/billing', label: 'Billing', icon: 'card', permission: P.billing.manage },
 ]
+
+// Hide nav items the user can't visit — cleaner than rendering then
+// 403-ing on click, and keeps the sidebar tight for restricted roles.
+const nav = computed(() => navAll.filter((item) => can.permission(item.permission)))
 
 function isActive(item: NavItem) {
   const top = '/' + (route.path.split('/')[1] || '')

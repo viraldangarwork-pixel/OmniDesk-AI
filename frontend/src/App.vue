@@ -1,20 +1,9 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useAuthStore } from '@/stores/auth'
 import Toaster from '@/components/ui/Toaster.vue'
 import ErrorBoundary from '@/components/ui/ErrorBoundary.vue'
 
-const auth = useAuthStore()
-
-onMounted(async () => {
-  if (auth.accessToken) {
-    try {
-      await auth.fetchMe()
-    } catch {
-      auth.logout()
-    }
-  }
-})
+// Profile hydration runs inside the router's navigation guard — see
+// router/index.ts — so we don't need to kick it off here.
 </script>
 
 <template>

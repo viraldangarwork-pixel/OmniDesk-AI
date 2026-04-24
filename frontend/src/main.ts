@@ -5,6 +5,7 @@ import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query'
 import App from './App.vue'
 import router from './router'
 import { vMotion } from './directives/motion'
+import { vCan } from './directives/can'
 import './assets/main.css'
 
 /**
@@ -40,4 +41,5 @@ app.use(createPinia())
 app.use(router)
 app.use(VueQueryPlugin, { queryClient })
 app.directive('motion', vMotion)
+app.directive('can', vCan)
 app.mount('#app')

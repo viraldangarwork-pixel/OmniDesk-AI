@@ -26,6 +26,7 @@ export { default as UiConfirm } from './UiConfirm.vue'
 
 // Data display
 export { default as UiDataTable } from './UiDataTable.vue'
+export { default as UiVirtualList } from './UiVirtualList.vue'
 export { default as UiPagination } from './UiPagination.vue'
 export { default as UiEmptyState } from './UiEmptyState.vue'
 

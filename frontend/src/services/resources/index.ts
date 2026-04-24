@@ -20,7 +20,7 @@ export { aiAgentsApi } from './aiAgents'
 export type { AIAgentCreate, AIAgentUpdate, AIReplyResponse } from './aiAgents'
 
 export { kbApi } from './kb'
-export type { KBSearchHit, KBIngestUrl } from './kb'
+export type { KBSearchHit, KBSearchResponse, KBIngestUrl } from './kb'
 
 export { workflowsApi } from './workflows'
 export type {

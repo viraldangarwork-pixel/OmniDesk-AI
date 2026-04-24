@@ -5,13 +5,17 @@
  * mirror FastAPI / Pydantic conventions (snake_case, ISO timestamps).
  */
 
-/** Standard paginated list envelope. */
+/** Standard paginated list envelope.
+ *
+ * `pages` is derived on the client (`Math.ceil(total / size)`) — the backend
+ * may or may not include it on the wire, so treat it as optional.
+ */
 export interface Page<T> {
   items: T[]
   total: number
   page: number
   size: number
-  pages: number
+  pages?: number
 }
 
 /** Cursor-based list envelope (used by feeds like messages). */

@@ -103,11 +103,11 @@ export interface AIAgent extends Timestamped {
 
 export interface KBDocument extends Timestamped {
   id: UUID
-  tenant_id: UUID
   title: string
+  source_type: string
   source_url: string | null
-  status: 'pending' | 'indexed' | 'failed'
-  chunk_count: number
+  status: 'pending' | 'ready' | 'failed' | 'indexed' | string
+  meta: Record<string, unknown>
 }
 
 /* ----------------------------- Workflows ----------------------------- */

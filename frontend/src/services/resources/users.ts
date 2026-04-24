@@ -1,4 +1,4 @@
-import { GET, POST, PATCH, DELETE, type ReadOptions } from './_http'
+import { GET, POST, PUT, DELETE, type ReadOptions } from './_http'
 import type { User } from '@/types/domain'
 import type { Page, PageParams } from '@/types/api'
 
@@ -20,6 +20,6 @@ export const usersApi = {
     GET<Page<User>>('/users', { ...opts, params }),
   get: (id: string, opts?: ReadOptions) => GET<User>(`/users/${id}`, opts),
   create: (payload: UserCreate) => POST<User, UserCreate>('/users', payload),
-  update: (id: string, payload: UserUpdate) => PATCH<User, UserUpdate>(`/users/${id}`, payload),
+  update: (id: string, payload: UserUpdate) => PUT<User, UserUpdate>(`/users/${id}`, payload),
   remove: (id: string) => DELETE<void>(`/users/${id}`),
 }

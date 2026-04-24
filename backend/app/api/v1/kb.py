@@ -1,23 +1,48 @@
 from __future__ import annotations
 
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, File, Form, Query, UploadFile, status
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app.api.deps import DbSession, TenantId, require_permissions
 from app.models.kb import KBChunk, KBDocument
+from app.schemas.common import PaginatedResponse, PaginationParams
 from app.schemas.kb import KBDocOut, KBSearchResponse, KBUrlIngest, KBChunkOut
 
 router = APIRouter(dependencies=[Depends(require_permissions("kb.manage"))])
 
 
-@router.get("", response_model=list[KBDocOut])
-async def list_docs(db: DbSession, tenant_id: TenantId) -> list[KBDocOut]:
-    result = await db.execute(
-        select(KBDocument)
+@router.get("", response_model=PaginatedResponse[KBDocOut])
+async def list_docs(
+    db: DbSession,
+    tenant_id: TenantId,
+    pagination: Annotated[PaginationParams, Depends()],
+    q: str | None = Query(default=None),
+) -> PaginatedResponse[KBDocOut]:
+    base = select(KBDocument).where(KBDocument.tenant_id == tenant_id)
+    count_stmt = (
+        select(func.count())
+        .select_from(KBDocument)
         .where(KBDocument.tenant_id == tenant_id)
-        .order_by(KBDocument.created_at.desc())
     )
-    return [KBDocOut.model_validate(d) for d in result.scalars().all()]
+    if q:
+        like = f"%{q}%"
+        base = base.where(KBDocument.title.ilike(like))
+        count_stmt = count_stmt.where(KBDocument.title.ilike(like))
+    total = (await db.execute(count_stmt)).scalar_one()
+    stmt = (
+        base.order_by(KBDocument.created_at.desc())
+        .offset(pagination.offset)
+        .limit(pagination.size)
+    )
+    items = list((await db.execute(stmt)).scalars().all())
+    return PaginatedResponse[KBDocOut](
+        items=[KBDocOut.model_validate(d) for d in items],
+        total=total,
+        page=pagination.page,
+        size=pagination.size,
+    )
 
 
 @router.post(

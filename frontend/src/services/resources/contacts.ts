@@ -1,4 +1,4 @@
-import { GET, POST, PATCH, DELETE, type ReadOptions } from './_http'
+import { GET, POST, PUT, DELETE, type ReadOptions } from './_http'
 import type { Contact } from '@/types/domain'
 import type { Page, PageParams } from '@/types/api'
 
@@ -18,6 +18,6 @@ export const contactsApi = {
   get: (id: string, opts?: ReadOptions) => GET<Contact>(`/contacts/${id}`, opts),
   create: (payload: ContactCreate) => POST<Contact, ContactCreate>('/contacts', payload),
   update: (id: string, payload: ContactUpdate) =>
-    PATCH<Contact, ContactUpdate>(`/contacts/${id}`, payload),
+    PUT<Contact, ContactUpdate>(`/contacts/${id}`, payload),
   remove: (id: string) => DELETE<void>(`/contacts/${id}`),
 }

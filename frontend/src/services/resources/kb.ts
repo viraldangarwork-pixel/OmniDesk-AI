@@ -4,11 +4,14 @@ import type { KBDocument } from '@/types/domain'
 import type { Page, PageParams } from '@/types/api'
 
 export interface KBSearchHit {
-  document_id: string
-  chunk_id: string
+  id: string
+  content: string
   score: number
-  text: string
-  title: string
+}
+
+export interface KBSearchResponse {
+  query: string
+  results: KBSearchHit[]
 }
 
 export interface KBIngestUrl {
@@ -41,7 +44,7 @@ export const kbApi = {
     return data
   },
   search: async (q: string, opts?: ReadOptions) => {
-    const { data } = await api.get<KBSearchHit[]>('/kb/search', {
+    const { data } = await api.get<KBSearchResponse>('/kb/search', {
       ...withOptions({ signal: opts?.signal, silent: opts?.silent }),
       params: { q },
     })

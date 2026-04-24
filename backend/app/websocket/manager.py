@@ -18,8 +18,15 @@ class ConnectionManager:
         self._connections: dict[UUID, set[WebSocket]] = defaultdict(set)
         self._lock = asyncio.Lock()
 
-    async def connect(self, tenant_id: UUID, websocket: WebSocket) -> None:
-        await websocket.accept()
+    async def connect(
+        self,
+        tenant_id: UUID,
+        websocket: WebSocket,
+        subprotocol: str | None = None,
+    ) -> None:
+        # Completing the handshake with the negotiated sub-protocol echoes
+        # only the protocol name back to the client — never the token.
+        await websocket.accept(subprotocol=subprotocol)
         async with self._lock:
             self._connections[tenant_id].add(websocket)
         logger.info("ws.connect", tenant_id=str(tenant_id))

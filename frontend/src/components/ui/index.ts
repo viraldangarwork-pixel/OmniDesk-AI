@@ -33,6 +33,7 @@ export { default as UiEmptyState } from './UiEmptyState.vue'
 // Feedback
 export { default as Toaster } from './Toaster.vue'
 export { default as ErrorBoundary } from './ErrorBoundary.vue'
+export { default as TypingDots } from './TypingDots.vue'
 
 // Motion kit (existing)
 export { default as Skeleton } from './Skeleton.vue'

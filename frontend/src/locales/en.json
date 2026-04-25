@@ -1,0 +1,92 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "create": "Create",
+    "update": "Update",
+    "confirm": "Confirm",
+    "search": "Search",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "back": "Back",
+    "close": "Close",
+    "signOut": "Sign out",
+    "export": "Export",
+    "exportCsv": "Export CSV",
+    "new": "New",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "network": "Network error — please check your connection.",
+    "forbidden": "You don't have permission to do that.",
+    "notFound": "Not found.",
+    "server": "Server error — please try again shortly."
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInSubtitle": "Sign in to OmniDesk AI",
+    "signIn": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "noAccount": "No account?",
+    "createOne": "Create one",
+    "createWorkspace": "Create your workspace",
+    "trialSubtitle": "Start your OmniDesk AI trial in seconds. No credit card.",
+    "company": "Company",
+    "slug": "Slug",
+    "yourName": "Your name",
+    "workEmail": "Work email",
+    "passwordMin": "Minimum 8 characters",
+    "create": "Create workspace",
+    "alreadyHave": "Already have an account?",
+    "signInFailed": "Sign-in failed",
+    "registerFailed": "Registration failed",
+    "accessRestricted": "Access restricted",
+    "accessRestrictedBody": "You don't have permission to view this page. If you think this is a mistake, ask your workspace admin to update your role.",
+    "goBack": "Go back",
+    "dashboard": "Dashboard"
+  },
+  "empty": {
+    "default": {
+      "title": "Nothing to show yet"
+    },
+    "contacts": {
+      "title": "No contacts yet",
+      "description": "Create your first contact or import from CSV."
+    },
+    "users": {
+      "title": "No users yet",
+      "description": "Invite the first teammate to this workspace."
+    },
+    "kb": {
+      "title": "No documents yet",
+      "description": "Upload a file or ingest a URL to start building your KB."
+    },
+    "inbox": {
+      "title": "Nothing here yet",
+      "description": "New conversations will show up here in real time."
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "inbox": "Inbox",
+    "contacts": "Contacts",
+    "leads": "Leads",
+    "aiAgents": "AI Agents",
+    "knowledge": "Knowledge",
+    "workflows": "Workflows",
+    "reports": "Reports",
+    "users": "Users",
+    "settings": "Settings",
+    "billing": "Billing",
+    "collapse": "Collapse"
+  },
+  "toast": {
+    "copied": "Copied to clipboard",
+    "saved": "Saved",
+    "deleted": "Deleted"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "loading": "Cargando…",
+    "retry": "Reintentar",
+    "back": "Volver",
+    "close": "Cerrar",
+    "signOut": "Cerrar sesión",
+    "export": "Exportar",
+    "exportCsv": "Exportar CSV",
+    "new": "Nuevo",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "errors": {
+    "generic": "Algo salió mal",
+    "network": "Error de red — revisa tu conexión.",
+    "forbidden": "No tienes permiso para hacer eso.",
+    "notFound": "No encontrado.",
+    "server": "Error del servidor — inténtalo en un momento."
+  },
+  "auth": {
+    "welcomeBack": "Bienvenido de nuevo",
+    "signInSubtitle": "Inicia sesión en OmniDesk AI",
+    "signIn": "Iniciar sesión",
+    "email": "Correo",
+    "password": "Contraseña",
+    "noAccount": "¿No tienes cuenta?",
+    "createOne": "Crea una",
+    "createWorkspace": "Crea tu espacio de trabajo",
+    "trialSubtitle": "Empieza tu prueba de OmniDesk AI en segundos. Sin tarjeta.",
+    "company": "Empresa",
+    "slug": "Slug",
+    "yourName": "Tu nombre",
+    "workEmail": "Correo de trabajo",
+    "passwordMin": "Mínimo 8 caracteres",
+    "create": "Crear espacio",
+    "alreadyHave": "¿Ya tienes cuenta?",
+    "signInFailed": "No se pudo iniciar sesión",
+    "registerFailed": "No se pudo registrar",
+    "accessRestricted": "Acceso restringido",
+    "accessRestrictedBody": "No tienes permiso para ver esta página. Si crees que es un error, pide a tu admin que actualice tu rol.",
+    "goBack": "Volver",
+    "dashboard": "Panel"
+  },
+  "empty": {
+    "default": { "title": "Aún no hay nada que mostrar" },
+    "contacts": { "title": "Sin contactos", "description": "Crea tu primer contacto o importa un CSV." },
+    "users": { "title": "Sin usuarios", "description": "Invita al primer miembro al espacio de trabajo." },
+    "kb": { "title": "Sin documentos", "description": "Sube un archivo o ingesta una URL para empezar tu KB." },
+    "inbox": { "title": "Vacío por aquí", "description": "Las nuevas conversaciones aparecerán aquí en tiempo real." }
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "inbox": "Bandeja",
+    "contacts": "Contactos",
+    "leads": "Oportunidades",
+    "aiAgents": "Agentes IA",
+    "knowledge": "Conocimiento",
+    "workflows": "Flujos",
+    "reports": "Informes",
+    "users": "Usuarios",
+    "settings": "Ajustes",
+    "billing": "Facturación",
+    "collapse": "Contraer"
+  },
+  "toast": {
+    "copied": "Copiado al portapapeles",
+    "saved": "Guardado",
+    "deleted": "Eliminado"
+  }
+}

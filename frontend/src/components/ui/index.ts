@@ -34,6 +34,7 @@ export { default as UiEmptyState } from './UiEmptyState.vue'
 export { default as Toaster } from './Toaster.vue'
 export { default as ErrorBoundary } from './ErrorBoundary.vue'
 export { default as TypingDots } from './TypingDots.vue'
+export { default as ThemeToggle } from './ThemeToggle.vue'
 
 // Motion kit (existing)
 export { default as Skeleton } from './Skeleton.vue'

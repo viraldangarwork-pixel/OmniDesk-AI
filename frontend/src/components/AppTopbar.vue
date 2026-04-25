@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useRouter, useRoute } from 'vue-router'
 import { wsStatus } from '@/services/ws'
 import { useUiStore } from '@/stores/ui'
+import ThemeToggle from '@/components/ui/ThemeToggle.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -122,6 +123,8 @@ function logout() {
           {{ wsStatus === 'open' ? 'Online' : 'Offline' }}
         </span>
       </div>
+
+      <ThemeToggle />
 
       <!-- User -->
       <div class="hidden text-right text-sm md:block">

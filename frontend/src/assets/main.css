@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Design tokens — referenced by tailwind.config.js via CSS variables so
+ * the runtime `useBranding()` util can override them per tenant without
+ * a rebuild.  Values are the RGB triplets (no `rgb(...)` wrapper)
+ * required by Tailwind's `<alpha-value>` protocol.
+ */
+:root {
+  --brand-50: 238 245 255;
+  --brand-100: 217 231 255;
+  --brand-200: 184 210 255;
+  --brand-300: 140 180 255;
+  --brand-400: 90 140 255;
+  --brand-500: 51 102 255;
+  --brand-600: 36 74 237;
+  --brand-700: 30 57 194;
+  --brand-800: 27 49 154;
+  --brand-900: 26 46 122;
+}
+
+/**
+ * Dark mode — activated by adding `.dark` to <html> (see useTheme).
+ * Neutrals flip via Tailwind's `dark:` variants at the component level;
+ * cross-cutting concerns (scrollbar, selection) live below.
+ */
+
 @layer base {
   html,
   body,

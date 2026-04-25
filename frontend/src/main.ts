@@ -4,8 +4,10 @@ import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query'
 
 import App from './App.vue'
 import router from './router'
+import { i18n } from './i18n'
 import { vMotion } from './directives/motion'
 import { vCan } from './directives/can'
+import { initMonitoring } from './services/monitoring'
 import './assets/main.css'
 
 /**
@@ -39,7 +41,12 @@ const queryClient = new QueryClient({
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
+app.use(i18n)
 app.use(VueQueryPlugin, { queryClient })
 app.directive('motion', vMotion)
 app.directive('can', vCan)
+
+// Lazy: only loads @sentry/vue when VITE_SENTRY_DSN is configured.
+void initMonitoring(app, router)
+
 app.mount('#app')

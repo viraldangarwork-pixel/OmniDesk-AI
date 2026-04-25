@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { useToast } from '@/composables/useToast'
 import UiFormField from '@/components/ui/UiFormField.vue'
@@ -13,6 +14,7 @@ const auth = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 const toast = useToast()
+const { t } = useI18n()
 
 const email = ref('')
 const password = ref('')
@@ -33,7 +35,7 @@ async function submit() {
     router.replace(redirect)
   } catch (e) {
     const err = e as ApiError
-    formError.value = err?.message ?? 'Sign-in failed'
+    formError.value = err?.message ?? t('auth.signInFailed')
     if (err?.fieldErrors) fieldErrors.value = err.fieldErrors
     // Shake the card once so the failure is unmistakable.
     shake.value = false
@@ -62,10 +64,10 @@ async function submit() {
         >
           O
         </div>
-        <h1 class="text-2xl font-semibold text-slate-900">
-          Welcome <span class="gradient-text">back</span>
+        <h1 class="text-2xl font-semibold text-slate-900 dark:text-slate-50">
+          {{ t('auth.welcomeBack') }}
         </h1>
-        <p class="mt-1 text-sm text-slate-500">Sign in to OmniDesk AI</p>
+        <p class="mt-1 text-sm text-slate-500">{{ t('auth.signInSubtitle') }}</p>
       </div>
 
       <!-- Inline error banner -->
@@ -84,7 +86,7 @@ async function submit() {
       </Transition>
 
       <form class="space-y-4" novalidate @submit.prevent="submit">
-        <UiFormField label="Email" required :error="fieldErrors.email">
+        <UiFormField :label="t('auth.email')" required :error="fieldErrors.email">
           <UiInput
             v-model="email"
             type="email"
@@ -100,7 +102,7 @@ async function submit() {
           </UiInput>
         </UiFormField>
 
-        <UiFormField label="Password" required :error="fieldErrors.password">
+        <UiFormField :label="t('auth.password')" required :error="fieldErrors.password">
           <UiInput
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
@@ -135,14 +137,14 @@ async function submit() {
         </UiFormField>
 
         <UiButton type="submit" variant="primary" block size="lg" :loading="loading">
-          Sign in
+          {{ t('auth.signIn') }}
         </UiButton>
       </form>
 
       <p class="mt-6 text-center text-sm text-slate-500">
-        No account?
+        {{ t('auth.noAccount') }}
         <router-link to="/register" class="font-medium text-brand-600 hover:text-brand-700 hover:underline">
-          Create one
+          {{ t('auth.createOne') }}
         </router-link>
       </p>
     </div>
